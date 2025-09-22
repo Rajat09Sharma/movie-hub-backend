@@ -41,8 +41,9 @@ const loginHandler = async (req, res) => {
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: "lax",
+            secure: true,       
+            sameSite: "None",    
+            path: "/",
         });
 
         return res.status(200).json({ message: "User logined successfully.", token: accessToken, user_id: storedUser._id, role: storedUser.role });
@@ -115,8 +116,9 @@ const logoutHandler = async (req, res) => {
     try {
         res.clearCookie("refreshToken", {
             httpOnly: true,
-            secure: true,
-            sameSite: "lax",
+            secure: true,        
+            sameSite: "None",    
+            path: "/",
         });
         await Token.deleteOne({ token });
         return res.status(200).json({ message: "User logout successfully." })
